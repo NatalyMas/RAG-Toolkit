@@ -1,0 +1,46 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+.personal
+*/**/.DS_Store
+src/app/__pycache__/**/*
+src/app/services/test_files/
+src/app/services/files/
+.DS_Store
+src/app/api/__pycache__/
+src/app/api/endpoints/__pycache__/
+src/app/core/__pycache__/
+src/app/services/__pycache__/
+src/app/services/anything_llm/__pycache__/
+src/app/services/custom_rag/__pycache__/

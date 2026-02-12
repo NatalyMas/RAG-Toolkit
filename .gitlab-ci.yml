@@ -1,0 +1,47 @@
+stages:
+  - publish
+  - deploy
+  - release
+  - notification
+
+include:
+  - remote: 'https://gitlab.igatec.com/common/ci-cd-templates/raw/master/build_images.yml'
+  - remote: 'https://gitlab.igatec.com/common/ci-cd-templates/raw/master/publish_service_configs.yml'
+  - remote: 'https://gitlab.igatec.com/common/ci-cd-templates/raw/master/trigger_pipeline_configurations_deploy_k8s.yml'
+  - remote: 'https://gitlab.igatec.com/common/ci-cd-templates/raw/master/send_notification.yml'
+
+variables:
+  IMAGE_NAME: "power-platform/ootb/pas-ai-tools"
+  PUSH_TO_PUBLIC_REGISTRY: "false"
+
+publish configs:
+  extends:
+    - .publish_service_configs
+
+build image:
+  extends:
+    - .build_image
+    - .build_image_python
+
+update configuration on dev:
+  variables:
+    TARGET_BRANCH: "gle-sdv"
+  extends:
+    - .trigger_pipeline_configurations_deploy_k8s_develop
+
+send notification to rocket chat:
+  variables:
+    ROCKET_CHAT_CHANNELS: "${PROJECT_MAIN_CHANNEL}"
+    SERVICE: "pas-ai-tools"
+    EMOJI: ":rice:"
+  extends:
+    - .send_to_rocket_chat_on_tag
+    - .service_release_message
+
+send project updates notification to rocket chat:
+  variables:
+    ROCKET_CHAT_CHANNELS: "${PROJECT_MAIN_CHANNEL}"
+    MESSAGE: "`${CI_PROJECT_NAME}` обновлен на дев-стенде с изменениями `${CI_COMMIT_TITLE}`"
+  extends:
+    - .send_to_rocket_chat_on_commit
+    - .project_updates_message
