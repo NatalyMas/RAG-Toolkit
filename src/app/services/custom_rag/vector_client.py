@@ -43,16 +43,14 @@ class VectorClient:
             payload=payload
         )
 
-        operation_info = self.client.upsert(
+        self.client.upsert(
             collection_name=collection_name,
             points=[point]
         )
 
         logger.info(f"Added point {point_id} to collection '{collection_name}'")
 
-        return {
-            "point_id": point_id,
-        }
+        return {"point_id": point_id}
 
     def search_points(self, collection_name: str, query_vector: List[float],
                       limit: int = 5, score_threshold: Optional[float] = None) -> List[Dict[str, Any]]:
@@ -82,8 +80,6 @@ class VectorClient:
                 "id": hit.id,
                 "score": hit.score,
                 "payload": hit.payload,
-                # "vector": hit.vector if hasattr(hit, 'vector') else None,
-                # **vars(hit)  # я хз надо это все или нет
             })
 
         return results
@@ -114,7 +110,6 @@ class VectorClient:
         scroll_result = self.client.scroll(
             collection_name=collection_name,
             scroll_filter=filter_condition,
-            # limit=limit,
             with_payload=True,
             with_vectors=False
         )

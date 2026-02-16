@@ -2,7 +2,9 @@ import requests
 
 
 class ValidationClient:
-    """клиент для проверки запросов через LLM"""
+    """
+    клиент для проверки запросов через компактную LLM
+    перед отправкой в поиск контекста и большую LLM"""
 
     def __init__(self, base_url: str = "http://localhost:11434"):
         self.base_url = base_url
@@ -46,7 +48,6 @@ class ValidationClient:
             )
             response.raise_for_status()
             result = response.json().get("response", "").strip().lower()
-            # print(result)
             return result == "да" or result == "yes"
 
         except Exception as e:

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.app.api.endpoints import api_functions, test_router
+from src.app.api.endpoints import api_functions
 
 app = FastAPI(
     title="RAG Service",
@@ -8,4 +8,3 @@ app = FastAPI(
 )
 
 app.include_router(api_functions.router, tags=["functions"])
-app.include_router(test_router.test_router, prefix="/api", tags=["test"])

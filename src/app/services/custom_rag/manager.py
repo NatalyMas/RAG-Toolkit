@@ -1,4 +1,3 @@
-# import json
 import logging
 from typing import List, Dict, Any, Optional
 from .embedding_client import EmbeddingClient
@@ -79,12 +78,6 @@ class CustomRAGManager:
                     # "embedding": embedding,
                 }
             }
-        # import os
-        # import json
-        # os.makedirs('src/app/services/files/', exist_ok=True)
-        # with open("src/app/services/files/add_result.json", 'w', encoding='utf-8') as f:
-        #     json.dump(results, f, ensure_ascii=False, indent=4, default=str)
-        #     print(f"Сохранено в add_result.json")
 
         return results
 
@@ -105,11 +98,6 @@ class CustomRAGManager:
         if not results:
             return {"search_result": []}
         else:
-            # import os
-            # os.makedirs('src/app/services/files/', exist_ok=True)
-            # with open("src/app/services/files/search_result.json", 'w', encoding='utf-8') as f:
-            #     json.dump(results, f, ensure_ascii=False, indent=4, default=str)
-            #     print(f"Сохранено в search_result.json")
             return {"search_result": results}
 
     def search_by_metadata(self, collection_name: str,

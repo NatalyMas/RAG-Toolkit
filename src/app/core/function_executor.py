@@ -8,7 +8,10 @@ logger = logging.getLogger(__name__)
 
 
 class FunctionExecutor:
-    """Центральный диспетчер функций для RAG сервиса"""
+    """
+    Центральный диспетчер функций для RAG сервиса
+    коммутирует функции с интерфейсом студии моделирования
+    """
 
     def __init__(self):
         self.custom_rag_manager = CustomRAGManager()
@@ -16,7 +19,9 @@ class FunctionExecutor:
         self.functions = self._build_catalog()
 
     def _build_catalog(self) -> Dict[str, Dict]:
-        """Построить каталог доступных функций"""
+        """
+        Построить каталог доступных функций в формате, требуемом студией моделирования
+        """
         return {
             "add_to_database": {
                 "id": "add_to_database",
@@ -413,7 +418,7 @@ class FunctionExecutor:
         if not collection_name:
             raise ValueError("Parameter 'collection_name' is required")
 
-        success = self.custom_rag_manager.vector_db.create_collection(
+        self.custom_rag_manager.vector_db.create_collection(
             collection_name=collection_name,
             vector_size=self.custom_rag_manager.embedding_dimension
         )
